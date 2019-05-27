@@ -5,18 +5,8 @@ TARGET = %{Plugin_Name}
 CONFIG += plugin
 TEMPLATE = lib
 
-DESTDIR = $$PWD/../bin/plugins
-
-HEADERS += \\
-	%{ImplHdrFileName} \\
-    %{ActivatorHdrFileName} \\
-
-
-SOURCES += \\
-	%{ImplSrcFileName} \\
-    %{ActivatorSrcFileName} \\
-
-
+DESTDIR = $$PWD/../../bin/plugins
+include(%{ProjectName}.pri)
 
 #-------------------------CTK-------------------------------#
 #CTK 安装路径
@@ -37,7 +27,4 @@ LIBS += -L$$CTK_LIB_PATH -lCTKCore -lCTKWidgets -lCTKPluginFramework
 INCLUDEPATH += $$CTK_INCLUDE_PATH \
                $$CTK_INCLUDE_FRAMEWORK_PATH
 #-------------------------CTK-------------------------------#
-
-RESOURCES += \\
-    resource.qrc
 

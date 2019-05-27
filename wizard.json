@@ -13,6 +13,7 @@
     [
         { "key": "ProjectFile", "value": "%{ProFile}" },
         { "key": "ProFile", "value": "%{JS: Util.fileName('%{ProjectDirectory}/%{ProjectName}', 'pro')}" },
+		{ "key": "PriFile", "value": "%{JS: Util.fileName('%{ProjectDirectory}/%{ProjectName}', 'pri')}" },
 		
 		{ "key": "IsTopLevelProject", "value": "%{JS: !'%{Exists:ProjectExplorer.Profile.Ids}'}" },
 		
@@ -23,19 +24,22 @@
 		{ "key": "Plugin_Vendor","value": "%{PluginVendor}"},
 		{ "key": "Plugin_ContactAddress","value": "%{PluginContactAddress}"},
 		
-		{ "key": "ImplClass","value": "%{PluginName}Impl" },
-		{ "key": "ActivatorClass","value": "%{PluginName}Activator" },
+		{ "key": "ServiceClass","value": "%{PluginName}_service" },
+		{ "key": "ImplClass","value": "%{PluginName}_impl" },
+		{ "key": "ActivatorClass","value": "%{PluginName}_activator" },
 		
+		{ "key": "ServiceHdrFileName","value": "%{JS: Cpp.classToFileName('%{ServiceClass}', '%{JS: Util.preferredSuffix('text/x-c++hdr')}')}"},
 		{ "key": "ImplHdrFileName","value": "%{JS: Cpp.classToFileName('%{ImplClass}', '%{JS: Util.preferredSuffix('text/x-c++hdr')}')}"},
 		{ "key": "ImplSrcFileName","value": "%{JS: Cpp.classToFileName('%{ImplClass}', '%{JS: Util.preferredSuffix('text/x-c++src')}')}"},
 		
 		{ "key": "ActivatorHdrFileName","value": "%{JS: Cpp.classToFileName('%{ActivatorClass}', '%{JS: Util.preferredSuffix('text/x-c++hdr')}')}"},
 		{ "key": "ActivatorSrcFileName","value": "%{JS: Cpp.classToFileName('%{ActivatorClass}', '%{JS: Util.preferredSuffix('text/x-c++src')}')}"},
 
+		{ "key": "ServiceHdrPath", "value": "%{ProjectDirectory}/%{ServiceHdrFileName}" },
 		{ "key": "ImplHdrPath", "value": "%{ProjectDirectory}/%{ImplHdrFileName}" },
 		{ "key": "ImplSrcPath", "value": "%{ProjectDirectory}/%{ImplSrcFileName}" },
 		{ "key": "ImplCN", "value": "%{JS: Cpp.className('%{ImplClass}')}" },
-		{ "key": "ImplBN", "value": "%{JS: Cpp.className('%{ServiceName}')}"},
+		{ "key": "ServiceCN", "value": "%{JS: Cpp.className('%{ServiceClass}')}" },
 		
 		{ "key": "ActivatorHdrPath", "value": "%{ProjectDirectory}/%{ActivatorHdrFileName}" },
 		{ "key": "ActivatorSrcPath", "value": "%{ProjectDirectory}/%{ActivatorSrcFileName}" },
@@ -63,13 +67,6 @@
 			"typeId": "Fields",
 			"data" :
 			[
-				{
-					"name": "ServiceName",
-					"trDisplayName": "Service name:",
-					"mandatory": false,
-					"type": "LineEdit",
-					"data": { "validator": "(?:(?:[a-zA-Z][a-zA-Z0-9]*::)*[a-zA-Z][a-zA-Z0-9]*|)" }
-				},
 				{
 					"name": "PluginName",
 					"trDisplayName": "Plugin name:",
@@ -115,7 +112,7 @@
 					"type": "LineEdit",
 					"data": 
 					{ 
-						"trText":"LR"
+						"trText":"APE"
 					}
 				},
 				{
@@ -125,7 +122,7 @@
 					"type": "LineEdit",
 					"data": 
 					{ 
-						"trText": "www.260487189@qq.com"
+						"trText": "allen.xing@apetech.com"
 					}
 				}
 			]
@@ -148,6 +145,19 @@
                     "source": "File.pro",
                     "target": "%{ProFile}",
                     "openAsProject": true
+                },
+				{
+                    "source": "File.pri",
+                    "target": "%{PriFile}"
+                },
+				{
+                    "source": "ServiceFile.h",
+                    "target": "%{ServiceHdrFileName}",
+                    "openInEditor": true,
+                    "options": [
+                        { "key": "Cpp:License:FileName", "value": "%{ServiceHdrFileName}" },
+                        { "key": "Cpp:License:ClassName", "value": "%{ServiceCN}" }
+                    ]
                 },
 				{
                     "source": "ImplFile.h",

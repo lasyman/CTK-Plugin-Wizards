@@ -4,13 +4,10 @@
 
 void %{ActivatorCN}::start(ctkPluginContext *context)
 {
-@if '%{ImplBN}'
 	s.reset(new %{ImplCN}(context));
-@endif
-    
 }
 
 void %{ActivatorCN}::stop(ctkPluginContext *context)
 {
-
+    Q_UNUSED(context)
 }

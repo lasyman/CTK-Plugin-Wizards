@@ -4,27 +4,16 @@
 
 #include <QObject>
 
-@if '%{ImplBN}'
-#include "%{ImplBN}.h"
-@endif
+#include "%{ServiceCN}.h"
 
 class ctkPluginContext;
 
-@if '%{ImplBN}'
-class %{ImplCN} : public QObject, public %{ImplBN}
-@else
-class %{ImplCN} : public QObject
-@endif
+class %{ImplCN} : public %{ServiceCN}
 {
     Q_OBJECT
-@if '%{ImplBN}'	
-    Q_INTERFACES(%{ImplBN})
-@endif
+    Q_INTERFACES(%{ServiceCN})
 public:
     %{ImplCN}(ctkPluginContext* context);
-@if '%{ImplBN}'
-    void sayHello() Q_DECL_OVERRIDE;
-@endif
 };
 
 #endif // %{JS: Cpp.headerGuard('%{ImplHdrFileName}')}
